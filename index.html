@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>POCKET CREATURE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="device" id="device">
+
+  <!-- TOP BAR -->
+  <div class="device-top">
+    <div class="top-grille"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="brand-name">POCKET CREATURE</div>
+    <div class="top-grille"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- SCREEN -->
+  <div class="screen-wrap">
+    <div class="screen-bezel">
+      <div class="screen" id="screen">
+
+        <div class="screen-header">
+          <div class="header-left">
+            <span class="time-display" id="time-display">--:--</span>
+            <span class="period-icon" id="period-icon">☀</span>
+          </div>
+          <div class="header-center">
+            <span class="creature-name-display" id="creature-name-disp">---</span>
+            <span class="creature-type-disp" id="creature-type-disp"></span>
+          </div>
+          <div class="header-right">
+            <span class="day-count" id="day-count">day 0</span>
+          </div>
+        </div>
+
+        <div class="creature-stage" id="creature-stage">
+          <div class="evo-rings" id="evo-rings" style="display:none">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+          </div>
+          <img class="creature-img" id="creature-img" src="" alt="creature" draggable="false">
+          <div class="sleep-overlay" id="sleep-overlay" style="display:none">
+            <span class="zzz z1">z</span>
+            <span class="zzz z2">z</span>
+            <span class="zzz z3">Z</span>
+          </div>
+        </div>
+
+        <div class="bubble-wrap">
+          <div class="speech-bubble" id="speech-bubble">
+            <span id="speech-text">よろしくね！</span>
+          </div>
+        </div>
+
+        <div class="status-row" id="status-row"></div>
+        <div class="action-flash" id="action-flash" style="display:none"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY LIMITS -->
+  <div class="limits-strip">
+    <div class="limit-pill" id="lim-gohan">🍚 <span id="cnt-gohan">2</span>回</div>
+    <div class="limit-pill" id="lim-tokkun">⚡ <span id="cnt-tokkun">2</span>回</div>
+    <div class="limit-pill unchi-pill" id="lim-unchi">💩 <span id="cnt-unchi">0</span></div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="btn-grid">
+    <button class="action-btn" id="btn-gohan">
+      <span class="btn-icon">🍚</span>
+      <span class="btn-label">ごはん</span>
+    </button>
+    <button class="action-btn" id="btn-souji">
+      <span class="btn-icon">✨</span>
+      <span class="btn-label">そうじ</span>
+    </button>
+    <button class="action-btn" id="btn-tokkun">
+      <span class="btn-icon">⚡</span>
+      <span class="btn-label">とっくん</span>
+    </button>
+    <button class="action-btn" id="btn-battle">
+      <span class="btn-icon">⚔️</span>
+      <span class="btn-label">バトル</span>
+    </button>
+    <button class="action-btn" id="btn-zukan">
+      <span class="btn-icon">📖</span>
+      <span class="btn-label">図鑑</span>
+    </button>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="device-bottom">
+    <div class="bottom-grille"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="strap-hole"></div>
+    <div class="bottom-grille"><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+</div><!-- /device -->
+
+<!-- MODALS -->
+<div class="overlay" id="overlay" style="display:none">
+
+  <div class="modal" id="modal-battle" style="display:none">
+    <div class="modal-head">⚔️ バトル</div>
+    <div class="modal-body">
+      <div class="tab-row">
+        <button class="tab active" id="tab-c">挑戦する</button>
+        <button class="tab" id="tab-h">履歴</button>
+      </div>
+      <div id="pane-c">
+        <p class="hint-text">相手のキャラIDを入力してバトル！</p>
+        <input class="id-input" id="opp-id-input" type="text" placeholder="例: ABC123" maxlength="8">
+        <button class="modal-btn red" id="do-battle">⚔️ バトル開始！</button>
+        <div class="myid-box">
+          <div class="myid-label">自分のキャラID</div>
+          <div class="myid-value" id="my-id-disp">------</div>
+          <button class="copy-btn" id="copy-id">コピー</button>
+        </div>
+      </div>
+      <div id="pane-h" style="display:none">
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </div>
+    <button class="modal-close" id="close-battle">✕ 閉じる</button>
+  </div>
+
+  <div class="modal modal-wide" id="modal-zukan" style="display:none">
+    <div class="modal-head">📖 図鑑</div>
+    <div class="modal-body">
+      <div id="zukan-grid" class="zukan-grid"></div>
+    </div>
+    <button class="modal-close" id="close-zukan">✕ 閉じる</button>
+  </div>
+
+  <div class="modal" id="modal-result" style="display:none">
+    <div class="modal-head" id="result-head">結果</div>
+    <div class="modal-body">
+      <div id="result-body" class="result-body"></div>
+    </div>
+    <button class="modal-close" id="close-result">✕ 閉じる</button>
+  </div>
+
+  <div class="modal" id="modal-share" style="display:none">
+    <div class="modal-head">📣 シェア</div>
+    <div class="modal-body">
+      <div id="share-card" class="share-card"></div>
+      <a class="modal-btn red" id="share-x" href="#" target="_blank">𝕏 でポスト</a>
+      <div class="myid-box">
+        <div class="myid-label">キャラID</div>
+        <div class="myid-value" id="share-id-disp">------</div>
+        <button class="copy-btn" id="copy-share-id">コピー</button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-share">✕ 閉じる</button>
+  </div>
+
+</div>
+
+<script src="images.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
